@@ -1,4 +1,5 @@
-package PACKAGE_NAME;
-
 public class NewClass {
+    void login(String name, String password) {
+
+    }
 }
