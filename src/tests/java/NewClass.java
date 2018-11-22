@@ -25,7 +25,7 @@ public class NewClass {
     }
     void sendMessage (String subject ) {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@class, 'mail-ComposeButton')]"))));
-        driver.findElement(By.xpath("//div[contains(@class, 'mail-Done-Title ')]")).click();
+        driver.findElement(By.xpath("//a[contains(@class, 'mail-ComposeButton')]")).click();
         driver.findElement(By.xpath("//span[contains(@data-name, 'Себе')]")).click();
         driver.findElement(By.xpath("//input[contains(@class, 'tabfocus-prev')]")).sendKeys(subject);
         driver.findElement(By.xpath("//button[contains(@id, 'nb-33')]")).click();
