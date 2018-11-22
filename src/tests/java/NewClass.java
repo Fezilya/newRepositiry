@@ -12,7 +12,7 @@ public class NewClass {
     String superlink = "https://yandex.ru/";
 
 
-    void goTo() {
+    void goTo(String superlink) {
         driver.get(this.superlink);
 
     }
