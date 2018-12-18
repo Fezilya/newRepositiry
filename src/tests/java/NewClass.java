@@ -23,7 +23,7 @@ public class NewClass {
 
 
     void goTo(String superlink) {
-        driver.get(this.superlink);
+        driver.get(superlink);
 
     }
 
@@ -59,16 +59,28 @@ public class NewClass {
         Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'mail-Done-Title ')]")).isDisplayed());
 
     }
-    void chooseMessage() {
-        List<WebElement> login = driver.findElements(By.xpath("//span[@title='fezilya@yandex.ru']/../..//span[contains(@class, 'nb-checkbox-flag ')]"));
+    void chooseMessage(String email) {
+        List<WebElement> login = driver.findElements(By.xpath("//span[@title='"+ email + "']/../..//span[contains(@class, 'nb-checkbox-flag ')]"));
         for( WebElement a:login) {
             a.click();
 
         }
     }
+    void chooseAnyMessage(String mail) {
+        List<WebElement> emails = driver.findElements(By.xpath("//span[contains(@class, '-FromText')]"));
+        List<WebElement> checkBox = driver.findElements(By.xpath("//span[contains(@class, 'nb-checkbox-flag ')]"));
+            for (int i = 0; i < emails.size(); i++) {
+                if (emails.get(i).getAttribute("title").contains(mail)) {
+                    checkBox.get(i).click();
+                }
+            }
+    }
     void deleteMessage() {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, '-delete')]")));
         driver.findElement(By.xpath("//span[contains(@class, '-delete')]")).click();
+    }
+    void chooseLanguage() {
+        
     }
                /* boolean present;
                 try {
@@ -84,7 +96,49 @@ public class NewClass {
     //////////////////////////////////////////////
 
     @Test
-    private void someTest() throws InterruptedException {
+    private void sendAMessageToMyself() throws InterruptedException {
+
+        goTo(superlink);
+        login("Fezilya", "randompassword001");
+        checkLogin();
+        writeMessage();
+        writeAdress();
+        writeSubject("AnotherSubject");
+        sendMessage();
+        checkSendMessage();
+
+    }
+    @Test
+    private void DeleteMyMessages() throws InterruptedException {
+
+        goTo(superlink);
+        login("Fezilya", "randompassword001");
+        checkLogin();
+        chooseAnyMessage("fezilya@yandex.ru");
+        //chooseMessage("fezilya@yandex.ru");
+        deleteMessage();
+    }
+    @Test
+    private void ChangeLanguage() throws  InterruptedException {
+
+        goTo(superlink);
+        login("Fezilya", "randompassword001");
+        checkLogin();
+
+    }
+    @Test
+    private void MessageWithoutSubject() throws InterruptedException {
+
+        goTo(superlink);
+        login("Fezilya", "randompassword001");
+        checkLogin();
+        writeMessage();
+        writeAdress();
+        sendMessage();
+        checkSendMessage();
+    }
+    @Test
+    private void MessageWithoutEmail() throws InterruptedException {
 
         goTo(superlink);
         login("Fezilya", "randompassword001");
@@ -94,26 +148,17 @@ public class NewClass {
         writeSubject("anySubject");
         sendMessage();
         checkSendMessage();
-
     }
     @Test
-    private void anotherTest() throws InterruptedException {
+    private void Delete() throws InterruptedException {
 
         goTo(superlink);
         login("Fezilya", "randompassword001");
         checkLogin();
-        chooseMessage();
         deleteMessage();
     }
-    @Test
-    private void teest() throws  InterruptedException {
 
-        goTo(superlink);
-        login("Fezilya", "randompassword001");
-        checkLogin();
-
-
-    }
 }
+
 
 
