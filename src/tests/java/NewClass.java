@@ -40,7 +40,7 @@ public class NewClass {
 
     void writeAdress() throws InterruptedException {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@data-name, 'Себе')]")));
-        driver.findElement(By.xpath("//span[contains(@data-name, 'Себе')]")).click();
+        driver.findElement(By.xpath("//span[contains(@title, 'Fezilya')]")).click();
 }
     void writeSubject(String subject) {
         driver.findElement(By.xpath("//input[contains(@class, 'tabfocus-prev')]")).sendKeys(subject);
@@ -79,8 +79,18 @@ public class NewClass {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, '-delete')]")));
         driver.findElement(By.xpath("//span[contains(@class, '-delete')]")).click();
     }
-    void chooseLanguage() {
-        
+    void chooseLanguage(String language) {
+        driver.findElement(By.xpath("//a[contains(@data-nb-popup-toggler, 'settings')]")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href, '#setup/other')]")));
+        Assert.assertTrue(driver.findElement(By.xpath("//a[contains(@href, '#setup/other')]")).isDisplayed());
+        driver.findElement(By.xpath("//a[contains(@href, '#setup/other')]")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, 'Lang_arrow')]")));
+        driver.findElement(By.xpath("//span[contains(@class, 'Lang_arrow')]")).click();
+        List<WebElement> languages = driver.findElements(By.xpath("//a[contains(@data-params, 'lang')]"));
+            for (WebElement lang : languages) {
+                if (lang.getAttribute("data-params").contains(language))
+                lang.click();
+            }
     }
                /* boolean present;
                 try {
@@ -124,6 +134,7 @@ public class NewClass {
         goTo(superlink);
         login("Fezilya", "randompassword001");
         checkLogin();
+        chooseLanguage("en");
 
     }
     @Test
