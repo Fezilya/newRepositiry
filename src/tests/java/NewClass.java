@@ -34,7 +34,7 @@ public class NewClass {
         driver.findElement(By.xpath("//span[contains(@class,'Button-Text')]")).click();
     }
 
-    void writeMessage() throws InterruptedException {
+    void sendMessage() throws InterruptedException {
         driver.findElement(By.xpath("//a[contains(@class, 'mail-ComposeButton')]")).click();
     }
 
@@ -45,7 +45,7 @@ public class NewClass {
     void writeSubject(String subject) {
         driver.findElement(By.xpath("//input[contains(@class, 'tabfocus-prev')]")).sendKeys(subject);
     }
-    void sendMessage() {
+    void writeMessage() {
         driver.findElement(By.xpath("//button[contains(@class, ' js-send-button')] ")).click();
     }
 
@@ -155,14 +155,13 @@ public class NewClass {
         checkSendMessage();
     }
     @Test
-    private void MessageWithoutEmail() throws InterruptedException {
+    private void EmptyMessage() throws InterruptedException {
 
         goTo(superlink);
         login("Fezilya", "randompassword001");
         checkLogin();
         writeMessage();
         writeAdress();
-        writeSubject("anySubject");
         sendMessage();
         checkSendMessage();
     }
