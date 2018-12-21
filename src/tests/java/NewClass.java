@@ -79,18 +79,22 @@ public class NewClass {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, '-delete')]")));
         driver.findElement(By.xpath("//span[contains(@class, '-delete')]")).click();
     }
-    void chooseLanguage(String language) {
+    void goToSettings() {
         driver.findElement(By.xpath("//a[contains(@data-nb-popup-toggler, 'settings')]")).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@href, '#setup/other')]")));
-        Assert.assertTrue(driver.findElement(By.xpath("//a[contains(@href, '#setup/other')]")).isDisplayed());
+    }
+    void otherSettings () {
         driver.findElement(By.xpath("//a[contains(@href, '#setup/other')]")).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, 'Lang_arrow')]")));
+    }
+    void changeLanguage (String language) {
         driver.findElement(By.xpath("//span[contains(@class, 'Lang_arrow')]")).click();
         List<WebElement> languages = driver.findElements(By.xpath("//a[contains(@data-params, 'lang')]"));
             for (WebElement lang : languages) {
                 if (lang.getAttribute("data-params").contains(language))
                 lang.click();
             }
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, 'Lang_arrow')]")));
     }
                /* boolean present;
                 try {
@@ -134,7 +138,9 @@ public class NewClass {
         goTo(superlink);
         login("Fezilya", "randompassword001");
         checkLogin();
-        chooseLanguage("en");
+        goToSettings();
+        otherSettings();
+        changeLanguage("en");
 
     }
     @Test
