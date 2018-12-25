@@ -27,19 +27,19 @@ public class NewClass {
 
     }
 
-    void login(String name, String password) throws InterruptedException {
+    void login(String name, String password) {
         driver.findElement(By.xpath("//a[contains(@class,'login-enter-expanded')]")).click();
         driver.findElement(By.xpath("//input[contains(@autocomplete,'username')]")).sendKeys(name);
         driver.findElement(By.xpath("//input[contains(@autocomplete,'current-password')]")).sendKeys(password);
         driver.findElement(By.xpath("//span[contains(@class,'Button-Text')]")).click();
     }
 
-    void sendMessage() throws InterruptedException {
+    void sendMessage()  {
         driver.findElement(By.xpath("//a[contains(@class, 'mail-ComposeButton')]")).click();
     }
 
-    void writeAdress() throws InterruptedException {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@data-name, 'Себе')]")));
+    void writeAdress()  {
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@title, 'Fezilya')]")));
         driver.findElement(By.xpath("//span[contains(@title, 'Fezilya')]")).click();
 }
     void writeSubject(String subject) {
@@ -49,8 +49,7 @@ public class NewClass {
         driver.findElement(By.xpath("//button[contains(@class, ' js-send-button')] ")).click();
     }
 
-    void checkLogin () throws InterruptedException {
-        //Thread.sleep(10000);
+    void checkLogin ()  {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@class, 'mail-ComposeButton')]")));
         Assert.assertTrue(driver.findElement(By.xpath("//a[contains(@class, 'mail-ComposeButton')]")).isDisplayed());
     }
@@ -96,21 +95,12 @@ public class NewClass {
             }
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, 'Lang_arrow')]")));
     }
-               /* boolean present;
-                try {
-                    a.findElement(By.xpath("span[contains(@title, 'fezilya@yandex.ru')]"));
-                    present = true;
-                } catch (NoSuchElementException e) {
-                    present = false;
-                }
-            if (present = true)*/
 
-    // void deleteMessage() {
-     ////span[contains(@title, 'fezilya@yandex.ru')]
-    //////////////////////////////////////////////
+
+
 
     @Test
-    private void sendAMessageToMyself() throws InterruptedException {
+    private void sendAMessageToMyself()  {
 
         goTo(superlink);
         login("Fezilya", "randompassword001");
@@ -123,17 +113,16 @@ public class NewClass {
 
     }
     @Test
-    private void DeleteMyMessages() throws InterruptedException {
+    private void DeleteMyMessages()  {
 
         goTo(superlink);
         login("Fezilya", "randompassword001");
         checkLogin();
         chooseAnyMessage("fezilya@yandex.ru");
-        //chooseMessage("fezilya@yandex.ru");
         deleteMessage();
     }
     @Test
-    private void ChangeLanguage() throws  InterruptedException {
+    private void changeLanguage()  {
 
         goTo(superlink);
         login("Fezilya", "randompassword001");
@@ -144,7 +133,7 @@ public class NewClass {
 
     }
     @Test
-    private void MessageWithoutSubject() throws InterruptedException {
+    private void messageWithoutSubject()  {
 
         goTo(superlink);
         login("Fezilya", "randompassword001");
@@ -155,7 +144,7 @@ public class NewClass {
         checkSendMessage();
     }
     @Test
-    private void EmptyMessage() throws InterruptedException {
+    private void emptyMessage()  {
 
         goTo(superlink);
         login("Fezilya", "randompassword001");
@@ -166,7 +155,7 @@ public class NewClass {
         checkSendMessage();
     }
     @Test
-    private void Delete() throws InterruptedException {
+    private void delete()  {
 
         goTo(superlink);
         login("Fezilya", "randompassword001");
