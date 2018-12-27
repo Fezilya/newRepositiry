@@ -34,36 +34,38 @@ public class NewClass {
         driver.findElement(By.xpath("//span[contains(@class,'Button-Text')]")).click();
     }
 
-    void sendMessage()  {
+    void composeMessage()  {
         driver.findElement(By.xpath("//a[contains(@class, 'mail-ComposeButton')]")).click();
     }
-
-    void writeAdress()  {
+    void writeAddress()  {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@title, 'Fezilya')]")));
         driver.findElement(By.xpath("//span[contains(@title, 'Fezilya')]")).click();
-}
+    }
     void writeSubject(String subject) {
         driver.findElement(By.xpath("//input[contains(@class, 'tabfocus-prev')]")).sendKeys(subject);
     }
-    void writeMessage() {
-        driver.findElement(By.xpath("//button[contains(@class, ' js-send-button')] ")).click();
+    void sendMessage() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@class, ' js-send-button')]")));
+        driver.findElement(By.xpath("//button[contains(@class, ' js-send-button')]")).click();
     }
 
     void checkLogin ()  {
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@class, 'mail-ComposeButton')]")));
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(@class, 'mail-ComposeButton')]")));
+        }
+        catch(Exception e){
+            Assert.fail("Element is not present");
+        }
         Assert.assertTrue(driver.findElement(By.xpath("//a[contains(@class, 'mail-ComposeButton')]")).isDisplayed());
     }
     void checkSendMessage() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'mail-Done-Title ')]")));
-        Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'mail-Done-Title ')]")).isDisplayed());
-
-    }
-    void chooseMessage(String email) {
-        List<WebElement> login = driver.findElements(By.xpath("//span[@title='"+ email + "']/../..//span[contains(@class, 'nb-checkbox-flag ')]"));
-        for( WebElement a:login) {
-            a.click();
-
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'mail-Done-Title ')]")));
         }
+        catch(Exception e) {
+            Assert.fail("Element is not present");
+        }
+        Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'mail-Done-Title ')]")).isDisplayed());
     }
     void chooseAnyMessage(String mail) {
         List<WebElement> emails = driver.findElements(By.xpath("//span[contains(@class, '-FromText')]"));
@@ -105,8 +107,8 @@ public class NewClass {
         goTo(superlink);
         login("Fezilya", "randompassword001");
         checkLogin();
-        writeMessage();
-        writeAdress();
+        composeMessage();
+        writeAddress();
         writeSubject("AnotherSubject");
         sendMessage();
         checkSendMessage();
@@ -138,8 +140,8 @@ public class NewClass {
         goTo(superlink);
         login("Fezilya", "randompassword001");
         checkLogin();
-        writeMessage();
-        writeAdress();
+        composeMessage();
+        writeAddress();
         sendMessage();
         checkSendMessage();
     }
@@ -149,8 +151,7 @@ public class NewClass {
         goTo(superlink);
         login("Fezilya", "randompassword001");
         checkLogin();
-        writeMessage();
-        writeAdress();
+        composeMessage();
         sendMessage();
         checkSendMessage();
     }
